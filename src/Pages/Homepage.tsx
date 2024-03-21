@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Album, UserComplete } from "../Types/Types";
 import Table from "../Components/Table";
-
+import Search from "../Components/Search";
 
 function Homepage() {
 	const [combinedData, setCombinedData] = useState<Album[]>([]);
@@ -43,8 +43,9 @@ function Homepage() {
 	console.log("combined data", combinedData);
 
 	return (
-		<div className="container mx-auto">
-			<h1>Homepage</h1>
+		
+		<div className="container mx-auto my-6">
+			<Search />
 			<Table combinedData={combinedData}/>
 		</div>
 	);
