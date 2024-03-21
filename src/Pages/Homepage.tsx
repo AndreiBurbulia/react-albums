@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Album, UserComplete } from "../Types/Types";
+import Table from "../Components/Table";
+
 
 function Homepage() {
 	const [combinedData, setCombinedData] = useState<Album[]>([]);
-	console.log("before");
 	
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,6 +45,7 @@ function Homepage() {
 	return (
 		<div className="container mx-auto">
 			<h1>Homepage</h1>
+			<Table combinedData={combinedData}/>
 		</div>
 	);
 }
