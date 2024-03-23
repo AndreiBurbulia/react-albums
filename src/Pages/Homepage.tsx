@@ -6,7 +6,7 @@ import Search from "../Components/Search";
 
 function Homepage() {
 	const [combinedData, setCombinedData] = useState<Album[]>([]);
-	
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -42,11 +42,45 @@ function Homepage() {
 
 	console.log("combined data", combinedData);
 
-	return (
+	const filterData = (searchTerm: string) => {
+		// Filtra i dati in base al termine di ricerca
+		const filteredData = combinedData.filter(item =>
+			item.title.toLowerCase().includes(searchTerm.toLowerCase())
+		);
+		// Aggiorna lo stato dei dati filtrati
+		setCombinedData(filteredData);
+	};
+
+	const sortingData = (column: string, order: string) => {
+		console.log(column, order);
+		//order by title
+		if (column === "title") {
+			const sortedData = combinedData.sort((a, b) => {
+				if (order === "asc") {
+					return a.title.localeCompare(b.title);
+				} else {
+					return b.title.localeCompare(a.title);
+				}
+			});
+			setCombinedData(sortedData)
+		} else if (column === "author"){ //order by author
+			const sortedDataByAuthor = combinedData.sort((a, b) => {
+				if (order === "asc") {
+					return (a.user?.name || "").localeCompare(b.user?.name || "");
+				} else {
+					return (b.user?.name || "").localeCompare(a.user?.name || "");
+				}
+			});
+			setCombinedData(sortedDataByAuthor);
+		}
+	}
 		
+		
+	return (
+
 		<div className="container mx-auto my-6">
-			<Search />
-			<Table combinedData={combinedData}/>
+			<Search filterData={filterData} />
+			<Table combinedData={combinedData} sortingData={sortingData}/>
 		</div>
 	);
 }

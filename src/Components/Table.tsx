@@ -1,23 +1,39 @@
+import { useState } from "react";
 import { Album } from "../Types/Types";
 
 
 
 interface ChildProps {
     combinedData: Album[];
+    sortingData: (column: string, order: string) => void;
 }
 
-const Table: React.FC<ChildProps> = ({ combinedData }) => {
+const Table: React.FC<ChildProps> = ({ combinedData, sortingData }) => {
+    const [orderTitleTable, setOrderTitleTable] = useState<"asc" | "desc">("asc");
+    const [orderAuthorTable, setOrderAuthorTable] = useState<"asc" | "desc">("asc");
+
+    const toggleOrderTitle = () => {
+        setOrderTitleTable(orderTitleTable === "asc" ? "desc" : "asc");
+        sortingData("title", orderTitleTable);
+    };
+
+    const toggleOrderAuthor = () => {
+        setOrderAuthorTable(orderAuthorTable === "asc" ? "desc" : "asc");
+        sortingData("author", orderAuthorTable);
+    };
+
+
     return (
         <>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
-                                Title
+                            <th scope="col" className="px-6 py-3" onClick={toggleOrderTitle}>
+                                Title {orderTitleTable === "asc" ? "▲" : "▼"}
                             </th>
-                            <th scope="col" className="px-6 py-3">
-                                Author
+                            <th scope="col" className="px-6 py-3" onClick={toggleOrderAuthor}>
+                                Author {orderAuthorTable === "asc" ? "▲" : "▼"}
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Actions
