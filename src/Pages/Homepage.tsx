@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Album, UserComplete } from "../Types/Types";
 import Table from "../Components/Table";
@@ -40,8 +40,6 @@ function Homepage() {
 		fetchData();
 	}, []);
 
-	console.log("combined data", combinedData);
-
 	const filterData = (searchTerm: string) => {
 		const filteredData = combinedData.filter(item =>
 			item.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -51,7 +49,6 @@ function Homepage() {
 	};
 
 	const sortingData = (column: string, order: string) => {
-		console.log(column, order);
 		//order by title
 		if (column === "title") {
 			const sortedData = combinedData.sort((a, b) => {
@@ -76,7 +73,6 @@ function Homepage() {
 		
 		
 	return (
-
 		<div className="container mx-auto my-6">
 			<Search filterData={filterData} />
 			<Table combinedData={combinedData} sortingData={sortingData}/>

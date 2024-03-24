@@ -1,4 +1,5 @@
-// Definisci l'interfaccia per il tipo di dato dell'utente completo
+import { ReactNode } from 'react';
+
 export interface UserComplete {
 	id: number;
 	name: string;
@@ -23,10 +24,35 @@ export interface UserComplete {
 	};
 }
 
-// Definisci l'interfaccia per il tipo di dato dell'album
 export interface Album {
 	userId: number;
 	id: number;
 	title: string;
 	user: UserComplete | undefined; // user potrebbe essere undefined, quindi aggiungi il "?"
+}
+
+export interface CardProps {
+	title: string;
+	image: string;
+}
+
+export interface SearchProps {
+	filterData: (searchTerm: string) => void;
+}
+
+export interface TableProps {
+	combinedData: Album[];
+	sortingData: (column: string, order: string) => void;
+}
+
+export interface LayoutProps {
+	children: ReactNode;
+}
+
+export interface Photo {
+	albumId: number;
+	id: number;
+	title: string;
+	url: string;
+	thumbnailUrl: string;
 }

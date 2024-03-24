@@ -1,10 +1,7 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Navbar from '../Components/Navbar';
 import { useNavigate, useLocation } from 'react-router-dom';
-
-interface LayoutProps {
-    children: ReactNode;
-}
+import { LayoutProps } from '../Types/Types';
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const navigate = useNavigate();
