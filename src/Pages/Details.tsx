@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Card from "../Components/Card";
 
 interface Photo {
@@ -14,6 +14,10 @@ interface Photo {
 const Details: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [detailsData, setDetailsData] = useState<Photo[] | null>(null);
+    const location = useLocation();
+    const { author } = location.state || {};
+    console.log("AUTHOR", author);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +40,7 @@ const Details: React.FC = () => {
             <>
                 {detailsData?.map(element => {
                     return <>
-                        <Card title={element.title} image={element.url}/>
+                        <Card title={element.title} image={element.thumbnailUrl} key={element.id}/>
                     </>
                 })}
             </>
@@ -48,9 +52,11 @@ const Details: React.FC = () => {
         <>
             <div className="container mx-auto my-6">
                 {!detailsData ? <div>Loading...</div> : null}
+                {!!author ? <h1 className="my-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black">
+                    Album writed by : {author}
+                    </h1> : null}
                 <div className="grid grid-cols-4 gap-4">
                     {renderCards()}
-
                 </div>
             </div>
         </>

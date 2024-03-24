@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Album } from "../Types/Types";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 interface ChildProps {
@@ -11,6 +11,7 @@ interface ChildProps {
 const Table: React.FC<ChildProps> = ({ combinedData, sortingData }) => {
     const [orderTitleTable, setOrderTitleTable] = useState<"asc" | "desc">("asc");
     const [orderAuthorTable, setOrderAuthorTable] = useState<"asc" | "desc">("asc");
+    const navigate = useNavigate();
 
     const toggleOrderTitle = () => {
         setOrderTitleTable(orderTitleTable === "asc" ? "desc" : "asc");
@@ -20,6 +21,11 @@ const Table: React.FC<ChildProps> = ({ combinedData, sortingData }) => {
     const toggleOrderAuthor = () => {
         setOrderAuthorTable(orderAuthorTable === "asc" ? "desc" : "asc");
         sortingData("author", orderAuthorTable);
+    };
+
+    const handleDetailsClick = (id: number, author: string | undefined) => {
+        // Navigazione alla pagina dei dettagli con il parametro aggiuntivo
+        navigate("/details/" + id, { state: { author: author } });
     };
 
 
@@ -51,15 +57,12 @@ const Table: React.FC<ChildProps> = ({ combinedData, sortingData }) => {
                                         {album.title}
                                     </th>
                                     <td className="px-6 py-4">{album.user?.name}</td>
-
                                     <td className="px-6 py-4">
-                                        <Link  to={"details/"+String(album.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
+                                        <button onClick={() => handleDetailsClick(album.id, album.user?.name)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Go to Details</button>
                                     </td>
                                 </tr>
-
                             )
                         })}
-
                     </tbody>
                 </table>
             </div>
