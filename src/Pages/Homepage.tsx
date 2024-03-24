@@ -43,7 +43,6 @@ function Homepage() {
 	console.log("combined data", combinedData);
 
 	const filterData = (searchTerm: string) => {
-		// Filtra i dati in base al termine di ricerca
 		const filteredData = combinedData.filter(item =>
 			item.title.toLowerCase().includes(searchTerm.toLowerCase())
 		);

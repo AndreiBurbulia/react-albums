@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Album } from "../Types/Types";
-
+import { Link } from "react-router-dom";
 
 
 interface ChildProps {
@@ -53,12 +53,7 @@ const Table: React.FC<ChildProps> = ({ combinedData, sortingData }) => {
                                     <td className="px-6 py-4">{album.user?.name}</td>
 
                                     <td className="px-6 py-4">
-                                        <a
-                                            href="#"
-                                            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                        >
-                                            Details
-                                        </a>
+                                        <Link  to={"details/"+String(album.id)} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</Link>
                                     </td>
                                 </tr>
 
